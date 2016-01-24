@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Pawel on 2014-12-05.
+ *
  */
 public class StatsService {
 

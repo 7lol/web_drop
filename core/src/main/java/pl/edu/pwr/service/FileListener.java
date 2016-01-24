@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 /**
- * Created by Pawel on 2014-12-05.
+ *
  */
 public class FileListener {
 
@@ -24,12 +24,12 @@ public class FileListener {
     private final Map<WatchKey, Path> keys;
     private String mainPath;
 
-    public FileListener(FileSender sender, Path dir,ExecutorService pool) throws IOException {
+    public FileListener(FileSender sender, Path dir, ExecutorService pool) throws IOException {
         this.sender = sender;
         this.watcher = FileSystems.getDefault().newWatchService();
-        this.keys = new HashMap<WatchKey, Path>();
+        this.keys = new HashMap<>();
         mainPath = dir.toAbsolutePath().toString();
-        this.pool=pool;
+        this.pool = pool;
         registerAll(dir);
     }
 
@@ -52,13 +52,13 @@ public class FileListener {
                 register(dir);
                 File file = new File(dir.toAbsolutePath().toString());
                 File[] files = file.listFiles();
-                for (int i = 0; i < files.length; i++) {
-                    if (!files[i].isDirectory()) {
-                        // adding files
-                        String path = (files[i].getAbsolutePath().toString().substring(mainPath.length()));
-                        pool.submit(new FileWorker(sender, Paths.get(files[i].getAbsolutePath()), mainPath, "update"));
+                if (files!=null)
+                    for (File file1 : files) {
+                        if (!file1.isDirectory()) {
+                            // adding files
+                            pool.submit(new FileWorker(sender, Paths.get(file1.getAbsolutePath()), mainPath, "update"));
+                        }
                     }
-                }
                 return FileVisitResult.CONTINUE;
             }
         });
@@ -116,11 +116,6 @@ public class FileListener {
         boolean valid = key.reset();
         if (!valid) {
             keys.remove(key);
-
-            // all directories are inaccessible
-            if (keys.isEmpty()) {
-                return;
-            }
         }
     }
 

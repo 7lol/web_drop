@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
 /**
- * Created by Pawel on 2014-12-05.
+ *
  */
 public class FileWorker implements Callable{
 

@@ -62,8 +62,7 @@ public class Dropbox {
         DbxWebAuthNoRedirect webAuth = new DbxWebAuthNoRedirect(requestConfig, appInfo);
         DbxAuthFinish authFinish;
         authFinish = webAuth.finish(webAuthKey.trim());
-        DbxAuthInfo authInfo = new DbxAuthInfo(authFinish.accessToken, appInfo.host);
-        this.authInfo = authInfo;
+        this.authInfo = new DbxAuthInfo(authFinish.accessToken, appInfo.host);
         saveAuthFile();
     }
 
@@ -112,7 +111,6 @@ public class Dropbox {
             String temp = metadata.toStringMultiline();
             temp = temp.substring(temp.lastIndexOf("modified") + 13, temp.lastIndexOf("modified") + 33);
             temp = temp.replace("T", "-");
-            temp.replace("Z", "");
             SimpleDateFormat dfDb = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
             File file = new File(filename);
             Date dateDb = dfDb.parse(temp);
@@ -140,8 +138,7 @@ public class Dropbox {
     }
 
     public ArrayList<DbxFiles.Metadata> getFileList() throws DbxException {
-        ArrayList<DbxFiles.Metadata> entries = getClient().files.listFolder("").entries;
-        return entries;
+        return getClient().files.listFolder("").entries;
     }
 
 

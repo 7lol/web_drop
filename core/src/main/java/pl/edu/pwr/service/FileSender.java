@@ -46,12 +46,11 @@ public class FileSender {
             return;
         }
         if (event == 2){
-            if (drop.deleteFile(path));
+            drop.deleteFile(path);
             return;
         }
         if (event == 3){
-            if (drop.createFolder(path));
-            return;
+            drop.createFolder(path);
         }
     }
 }

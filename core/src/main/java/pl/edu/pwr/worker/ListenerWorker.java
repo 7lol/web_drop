@@ -5,7 +5,7 @@ import pl.edu.pwr.service.FileListener;
 import java.util.concurrent.Callable;
 
 /**
- * Created by 7lol on 2016-01-22.
+ *
  */
 public class ListenerWorker implements Callable,Worker {
 
